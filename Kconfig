@@ -1,0 +1,32 @@
+#
+# FXOS8700 IMU driver
+#
+
+config FXOS8700
+	tristate
+	select IIO_BUFFER
+	select IIO_TRIGGERED_BUFFER
+
+config FXOS8700_I2C
+	tristate "Freescale FXOS8700 I2C driver"
+	depends on I2C
+	select FXOS8700
+	select REGMAP_I2C
+	help
+	  Say yes here to build support for the Freescale FXOS8700 m+g combo
+	  sensor on I2C.
+
+	  This driver can also be built as a module. If so, the module will be
+	  called fxos8700_i2c.
+
+config FXOS8700_SPI
+	tristate "Freescale FXOS8700 SPI driver"
+	depends on SPI
+	select FXOS8700
+	select REGMAP_SPI
+	help
+	  Say yes here to build support for the Freescale FXOS8700 m+g combo
+	  sensor on SPI.
+
+	  This driver can also be built as a module. If so, the module will be
+	  called fxos8700_spi.
