@@ -1,9 +1,9 @@
 #ifndef FXOS8700_H_
 #define FXOS8700_H_
 
-extern const struct regmap_config bmi160_regmap_config;
+extern const struct regmap_config fxos8700_regmap_config;
 
-struct bmi160_data {
+struct fxos8700_data {
 	struct regmap *regmap;
 	struct iio_trigger *trig;
 };
@@ -27,7 +27,7 @@ int fxos8700_probe_trigger(struct iio_dev *indio_dev, int irq, u32 irq_type);
 #define FXOS8700_OUT_Z_LSB          0x06
 #define FXOS8700_F_SETUP            0x09
 #define FXOS8700_TRIG_CFG           0x0a
-#define FXOS8700_SYSMOD             0x0B
+#define FXOS8700_SYSMOD             0x0b
 #define FXOS8700_INT_SOURCE         0x0c
 #define FXOS8700_WHO_AM_I           0x0d
 #define FXOS8700_XYZ_DATA_CFG       0x0e
@@ -162,7 +162,8 @@ int fxos8700_probe_trigger(struct iio_dev *indio_dev, int irq, u32 irq_type);
 #define FXOS8700_TYPE_ACC           0x00
 #define FXOS8700_TYPE_MAG           0x01
 #define FXOS8700_STANDBY            0x00
-#define FXOS8700_ACTIVED            0x01
+#define FXOS8700_ACTIVE             0x01
+#define FXOS8700_ACTIVE_MIN_USLEEP  4000 //from table 6 in datasheet
 
 #define ABS_STATUS                  ABS_WHEEL
 #define FXOS8700_DRIVER             "fxos8700"
@@ -172,5 +173,12 @@ int fxos8700_probe_trigger(struct iio_dev *indio_dev, int irq, u32 irq_type);
 #define FXOS8700_POLL_INTERVAL      400
 #define FXOS8700_POLL_MAX           800
 #define FXOS8700_POLL_MIN           100
+#define FXOS8700_CTRL_ODR_MSK       0x38
+
+enum {
+	MODE_2G = 0,
+	MODE_4G,
+	MODE_8G,
+};
 
 #endif  /* FXOS8700_H_ */
